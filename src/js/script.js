@@ -18,7 +18,7 @@ display Name() {
 }
 
 get Tweets() {
-    new TweetObj (tweet.text, tweet.image, tweet.title, tweet.gif)
+    new TweetObj (tweet.text, tweet.image, tweet.title)
 }
 
 }
@@ -28,7 +28,6 @@ classe TweetObj {
     this.text
     this.image
     this.title
-    this.gif
 
 display() {
     document.query = this.text, image, title ...
@@ -38,4 +37,27 @@ display() {
 
 */
 
-console.log("hi");
+import "../main.scss";
+
+(function init() {
+    const searchBtn = document.querySelector(".search-container__button");
+
+    searchBtn.addEventListener("click", searchAccount);
+})();
+
+function searchAccount(e) {
+    let url =  `https://api.twitter.com/2/tweets/search/recent?query=nyc`;
+          fetch(url,  {
+            "method": "GET",
+            "headers": {
+                "Authorization": `Bearer ${process.env.Bearer_TOKEN}`,
+            }
+        })  
+          .then(res => {
+          return res.json();
+      })
+      .then(body => {
+          console.log(body)
+      })
+}
+
